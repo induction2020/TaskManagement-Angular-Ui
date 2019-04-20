@@ -38,7 +38,6 @@ export class TaskUpdateComponent implements OnInit {
     this.taskService.getTaskById(taskId)
     .subscribe(
       data => {
-        alert("data: "+JSON.stringify(data));
         this.updateTaskForm.setValue(data);
       }
     );
@@ -50,7 +49,7 @@ export class TaskUpdateComponent implements OnInit {
       .subscribe(
         data => {
           if(data!=null) {
-            alert('Task updated successfully.');
+            //alert('Task updated successfully.');
             this.router.navigate(['view-task']);
           }else {
             alert("Error Occurred");

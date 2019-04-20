@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Task } from '../model/task';
 import { TaskServiceService } from '../task-service/task-service.service';
 import { Router } from '@angular/router';
+import { TaskDataService } from '../task-service/task-data.service';
 
 @Component({
   selector: 'app-task-list',
@@ -10,20 +11,23 @@ import { Router } from '@angular/router';
 })
 export class TaskListComponent implements OnInit {
 
-  constructor(private taskService: TaskServiceService, private router: Router) { }
+  constructor(private taskService: TaskServiceService,
+     private router: Router,
+     private taskDataService : TaskDataService) { }
 
   tasks: Task[];
 
   ngOnInit() {
-    this.taskService.getTask().
-      subscribe(
-        data => {
-          this.tasks = data;
-        }
-      )
+   
+    this.taskDataService.loadInitialTaskList();
+
+    this.taskDataService.taskListSource.subscribe(
+      dataTasks => this.tasks = dataTasks 
+    );
+      
   }
 
-  editTask(task: Task): void {
+  editTask(task: Task): void { 
     window.localStorage.removeItem('editTaskId');
     window.localStorage.setItem('editTaskId', task.taskId.toString());
     this.router.navigate(['/edit-task']);
@@ -33,6 +37,7 @@ export class TaskListComponent implements OnInit {
     this.taskService.deleteTask(task.taskId)
       .subscribe(data => {
         this.tasks = this.tasks.filter(u => u !== task);
+        this.taskDataService.updateTaskList( this.tasks);
       })
 
   }

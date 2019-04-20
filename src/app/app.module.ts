@@ -8,6 +8,7 @@ import { TaskUpdateComponent } from './task-update/task-update.component';
 import { TaskListComponent } from './task-list/task-list.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import { TaskViewComponent } from './task-view/task-view.component';
+import { TaskSearchComponent } from './task-search/task-search.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { TaskViewComponent } from './task-view/task-view.component';
     TaskAddComponent,
     TaskUpdateComponent,
     TaskListComponent,
-    TaskViewComponent
+    TaskViewComponent,
+    TaskSearchComponent
   ],
   imports: [
     BrowserModule,
